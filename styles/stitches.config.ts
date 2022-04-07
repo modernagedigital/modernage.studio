@@ -1,0 +1,15 @@
+import { createStitches, CSS as StitchesCSS } from "@stitches/react";
+export type { CSS } from "@stitches/react/types/css-util";
+
+export const stitches = createStitches({
+    prefix: "",
+    theme: {
+        colors: {
+            primary: "blue",
+        },
+    },
+    utils: {},
+});
+
+export const { css, styled, globalCss, theme, keyframes, getCssText } =
+    stitches;

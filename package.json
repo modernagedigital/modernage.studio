@@ -1,24 +1,34 @@
 {
-  "name": "modernage.studio",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "next": "12.1.4",
-    "react": "18.0.0",
-    "react-dom": "18.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "17.0.23",
-    "@types/react": "17.0.43",
-    "@types/react-dom": "17.0.14",
-    "eslint": "8.12.0",
-    "eslint-config-next": "12.1.4",
-    "typescript": "4.6.3"
-  }
+    "name": "modernage.studio",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@stitches/react": "^1.2.7",
+        "next": "12.1.4",
+        "react": "18.0.0",
+        "react-dom": "18.0.0"
+    },
+    "devDependencies": {
+        "@types/node": "17.0.23",
+        "@types/react": "17.0.43",
+        "@types/react-dom": "17.0.14",
+        "babel-plugin-macros": "^3.1.0",
+        "eslint": "8.12.0",
+        "eslint-config-next": "12.1.4",
+        "tailwindcss": "^3.0.23",
+        "twin.macro": "^2.8.2",
+        "typescript": "4.6.3"
+    },
+    "babelMacros": {
+        "twin": {
+            "preset": "stitches",
+            "stitchesConfig": "./styles/stitches.config.ts"
+        }
+    }
 }
