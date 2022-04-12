@@ -136,7 +136,7 @@ export const stitches = createStitches({
     utils: {},
 });
 
-export const darkTheme = createTheme("dark-theme", {
+export const darkTheme = createTheme("dark", {
     colors: {
         background: "black",
         white: "#000",

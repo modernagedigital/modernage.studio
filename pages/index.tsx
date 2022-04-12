@@ -6,6 +6,7 @@ import { HeroSection } from "page-components";
 import { NavBar } from "components";
 import { useState, useEffect } from "react";
 import { useViewportScroll } from "framer-motion";
+import { useTheme } from "next-themes";
 
 const StyledLayout = styled("div", {
     display: "grid",
@@ -31,21 +32,16 @@ const StyledThemeToggler = styled("div", {
 });
 
 const Home: NextPage = () => {
-    const [darkMode, updateDarkMode] = useState(false);
+    const [mounted, setMounted] = useState(false);
+    const { setTheme, resolvedTheme } = useTheme();
 
-    const { scrollY } = useViewportScroll();
-    useEffect(() => {
-        scrollY.onChange(() => {
-            scrollY.get() >= 100
-                ? updateShowNavBacking(true)
-                : updateShowNavBacking(false);
-            console.log(scrollY);
-        });
-    }, [scrollY]);
-    const [showNavBacking, updateShowNavBacking] = useState(false);
+    // When mounted on client, now we can show the UI
+    useEffect(() => setMounted(true), []);
+
+    if (!mounted) return null;
 
     return (
-        <div className={darkMode ? darkTheme : "light-theme"}>
+        <div>
             <Head>
                 <title>Create Next App</title>
                 <meta
@@ -55,11 +51,11 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <NavBar navBacking={showNavBacking} />
+            <NavBar />
             <main>
                 <StyledThemeToggler
                     onClick={() => {
-                        updateDarkMode(!darkMode);
+                        setTheme(resolvedTheme === "dark" ? "light" : "dark");
                     }}
                 />
                 <HeroSection />

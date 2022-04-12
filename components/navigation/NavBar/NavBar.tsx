@@ -3,8 +3,9 @@ import tw from "twin.macro";
 import { styled, darkTheme, keyframes } from "styles/stitches.config";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { indigoA, indigoDark, indigoDarkA } from "@radix-ui/colors";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import burgerBg from "assets/images/burger-bg.png";
+import { useViewportScroll } from "framer-motion";
 
 // burger icon
 const StyledBurgerIcon = styled("button", {
@@ -248,6 +249,7 @@ type NavMenuProps = {
 
 const NavMenu = (props: NavMenuProps) => {
     const { menuState } = props;
+
     return (
         <StyledNav menuState={menuState}>
             <StyledList>
@@ -317,10 +319,23 @@ const StyledHeader = styled("header", {
 });
 
 export const NavBar = (props: any) => {
-    const { burgerClick, navBacking } = props;
+    const { menuActive, onBurgerClick } = props;
     const [navActive, updateNavActive] = useState("");
+
+    const [showNavBacking, updateShowNavBacking] = useState(false);
+
+    // make nav backing show after scrolling 100px
+    const { scrollY } = useViewportScroll();
+    useEffect(() => {
+        scrollY.onChange(() => {
+            scrollY.get() >= 100
+                ? updateShowNavBacking(true)
+                : updateShowNavBacking(false);
+            console.log(scrollY);
+        });
+    }, [scrollY]);
     return (
-        <StyledHeader navBacking={navBacking}>
+        <StyledHeader navBacking={showNavBacking}>
             <StyledLogo>
                 Modern Age <span>Studio</span>
             </StyledLogo>
