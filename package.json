@@ -9,7 +9,11 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@radix-ui/colors": "^0.1.8",
+        "@radix-ui/react-navigation-menu": "^0.1.2",
+        "@radix-ui/react-visually-hidden": "^0.1.4",
         "@stitches/react": "^1.2.7",
+        "framer-motion": "^6.2.10",
         "next": "12.1.4",
         "react": "18.0.0",
         "react-dom": "18.0.0"

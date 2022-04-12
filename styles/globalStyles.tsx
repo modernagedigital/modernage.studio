@@ -4,8 +4,13 @@ import { globalCss } from "./stitches.config";
 
 const customStyles = {
     body: {
-        WebkitTapHighlightColor: theme`colors.purple.500`,
         ...tw`antialiased`,
+        fontSize: "var(--fontSizes-0)",
+        lineHeight: "var(--lineHeights-normal)",
+        background: "var(--colors-indigo1)",
+    },
+    "h1, h2, h3, h4, h5, h6": {
+        margin: 0,
     },
 };
 
