@@ -7,6 +7,17 @@ import { useState, useEffect } from "react";
 import burgerBg from "assets/images/burger-bg.png";
 import { useViewportScroll } from "framer-motion";
 
+const StyledThemeToggler = styled("div", {
+    ...tw`rounded-full`,
+    background: "blue",
+    width: 24,
+    height: 24,
+    position: "absolute",
+    right: 16,
+    bottom: -216,
+    zIndex: 1000,
+});
+
 // burger icon
 const StyledBurgerIcon = styled("button", {
     position: "relative",
@@ -319,7 +330,7 @@ const StyledHeader = styled("header", {
 });
 
 export const NavBar = (props: any) => {
-    const { menuActive, onBurgerClick } = props;
+    const { menuActive, onBurgerClick, onThemeToggle } = props;
     const [navActive, updateNavActive] = useState("");
 
     const [showNavBacking, updateShowNavBacking] = useState(false);
@@ -351,6 +362,7 @@ export const NavBar = (props: any) => {
             />
 
             <NavMenu menuState={navActive} />
+            <StyledThemeToggler onClick={onThemeToggle} />
         </StyledHeader>
     );
 };

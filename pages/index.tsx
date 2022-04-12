@@ -20,17 +20,6 @@ const StyledColumn = styled("div", {
     height: 200,
 });
 
-const StyledThemeToggler = styled("div", {
-    ...tw`rounded-full`,
-    background: "red",
-    width: 24,
-    height: 24,
-    position: "absolute",
-    left: 16,
-    bottom: 16,
-    zIndex: 1000,
-});
-
 const Home: NextPage = () => {
     const [mounted, setMounted] = useState(false);
     const { setTheme, resolvedTheme } = useTheme();
@@ -51,13 +40,12 @@ const Home: NextPage = () => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <NavBar />
+            <NavBar
+                onThemeToggle={() => {
+                    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+                }}
+            />
             <main>
-                <StyledThemeToggler
-                    onClick={() => {
-                        setTheme(resolvedTheme === "dark" ? "light" : "dark");
-                    }}
-                />
                 <HeroSection />
                 <br />
                 <br />
