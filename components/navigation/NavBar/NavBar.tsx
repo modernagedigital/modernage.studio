@@ -16,6 +16,11 @@ const StyledSwitchRoot = styled(Switch.Root, {
     height: 40,
     position: "relative",
     overflow: "hidden",
+    marginTop: "$3xs",
+    marginLeft: "$4xs",
+    "@sm": {
+        margin: 0,
+    },
     "&::before": {
         ...tw`block content absolute rounded-full opacity-75`,
         top: 9,
@@ -418,7 +423,7 @@ const NavMenu = (props: NavMenuProps) => {
                 </NavigationMenu.Item>
                 <NavigationMenu.Item>
                     <Link href="/about" passHref>
-                        <StyledLink active>About</StyledLink>
+                        <StyledLink>About</StyledLink>
                     </Link>
                 </NavigationMenu.Item>
                 <NavigationMenu.Item>
