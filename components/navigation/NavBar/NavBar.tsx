@@ -308,9 +308,17 @@ const StyledLogo = styled("div", {
     lineHeight: "$tighter",
     letterSpacing: "-0.02em",
     color: "$indigo12",
+    transition: "0.25s transform ease",
 
     span: {
         color: "$blue11",
+    },
+    ".menu-on &": {
+        transform: "translateX(calc(var(--mobile-nav-width)* -1))",
+
+        "@sm": {
+            transform: "none",
+        },
     },
 });
 
@@ -340,7 +348,7 @@ const StyledLink = styled(NavigationMenu.Link, {
 const StyledNav = styled(NavigationMenu.Root, {
     ...tw`fixed inset-0 z-50 p-s-m sm:flex items-center gap-xs`,
     left: "auto",
-    width: "clamp(240px, 80vw, 380px)",
+    width: "var(--mobile-nav-width)",
     background: indigoA.indigoA12,
     color: "white",
     height: "100vh",
@@ -372,12 +380,12 @@ const StyledNav = styled(NavigationMenu.Root, {
     variants: {
         menuState: {
             visible: {
-                animation: `${slideIn} 200ms`,
+                animation: `${slideIn} 250ms`,
                 animationFillMode: "forwards",
             },
             hidden: {
                 animationFillMode: "forwards",
-                animation: `${slideOut} 200ms`,
+                animation: `${slideOut} 250ms`,
             },
         },
     },
@@ -515,11 +523,22 @@ export const NavBar = (props: any) => {
             <BurgerIcon
                 isActive={navActive === "visible"}
                 onClick={() => {
-                    updateNavActive(
-                        !navActive || navActive === "hidden"
-                            ? "visible"
-                            : "hidden"
-                    );
+                    // updateNavActive(
+                    //     !navActive || navActive === "hidden"
+                    //         ? "visible"
+                    //         : "hidden"
+                    // );
+                    if (!navActive || navActive === "hidden") {
+                        document
+                            .querySelector("body")
+                            ?.classList.add("menu-on");
+                        updateNavActive("visible");
+                    } else {
+                        document
+                            .querySelector("body")
+                            ?.classList.remove("menu-on");
+                        updateNavActive("hidden");
+                    }
                 }}
             />
 

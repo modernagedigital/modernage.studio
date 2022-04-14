@@ -14,7 +14,7 @@ export const SiteWrapper = (props: any) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <NavBar />
-            <main>{children}</main>
+            <main className="site-wrapper">{children}</main>
         </div>
     );
 };

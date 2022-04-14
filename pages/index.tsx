@@ -3,6 +3,7 @@ import Head from "next/head";
 import { styled } from "../styles/stitches.config";
 import tw from "twin.macro";
 import { SiteWrapper, HeroSection } from "page-components";
+import { useEffect } from "react";
 
 const StyledLayout = styled("div", {
     display: "grid",
@@ -17,6 +18,9 @@ const StyledColumn = styled("div", {
 });
 
 const Home: NextPage = () => {
+    useEffect(() => {
+        document.querySelector("body")?.classList.remove("menu-on");
+    });
     return (
         <SiteWrapper>
             <HeroSection />
