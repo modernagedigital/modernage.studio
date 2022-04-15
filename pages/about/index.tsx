@@ -1,29 +1,15 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 import { styled } from "styles/stitches.config";
 import tw from "twin.macro";
-import { SiteWrapper, HeroSection } from "page-components";
-import { useEffect } from "react";
+import { SiteWrapper } from "page-components";
 
-const StyledLayout = styled("div", {
-    display: "grid",
-    gridTemplateColumns: "repeat(12, 1fr)",
-    gap: 40,
-    background: "red",
-});
-
-const StyledColumn = styled("div", {
-    ...tw`bg-blue-500`,
-    height: 200,
-});
-
-const Home: NextPage = () => {
-    useEffect(() => {
-        // document.querySelector("body")?.classList.remove("menu-on");
-    });
+const About: NextPage = () => {
     return (
         <SiteWrapper>
-            <HeroSection />
+            <div tw="height[80vh] grid place-items-center bg-red-2">
+                <h1 tw="text-hero">About Page!</h1>
+            </div>
+
             <br />
             <br />
             <br />
@@ -93,4 +79,4 @@ const Home: NextPage = () => {
     );
 };
 
-export default Home;
+export default About;

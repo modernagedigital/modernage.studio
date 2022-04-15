@@ -1,8 +1,18 @@
 import Head from "next/head";
 import { NavBar } from "components";
+import { styled } from "styles/stitches.config";
+import { useEffect } from "react";
+
+const StyledSiteWrapper = styled("main", {
+    position: "relative",
+    zIndex: 10,
+});
 
 export const SiteWrapper = (props: any) => {
     const { children, pageTitle } = props;
+    useEffect(() => {
+        document.querySelector("body")?.classList.remove("menu-on");
+    });
     return (
         <div>
             <Head>
@@ -14,7 +24,9 @@ export const SiteWrapper = (props: any) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <NavBar />
-            <main className="site-wrapper">{children}</main>
+            <StyledSiteWrapper className="site-wrapper">
+                {children}
+            </StyledSiteWrapper>
         </div>
     );
 };

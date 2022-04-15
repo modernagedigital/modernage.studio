@@ -39,8 +39,6 @@ export const stitches = createStitches({
     },
     theme: {
         colors: {
-            primary: "blue",
-            background: "white",
             white: "#fff",
             black: "#000",
             ...slate,

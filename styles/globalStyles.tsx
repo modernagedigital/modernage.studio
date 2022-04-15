@@ -15,10 +15,11 @@ const customStyles = {
         "&.menu-on": {
             height: "100vh",
             overflow: "hidden",
+            touchAction: "none",
             "@sm": {
                 height: "auto",
                 overflow: "auto",
-                transform: "none",
+                touchAction: "auto",
             },
         },
     },

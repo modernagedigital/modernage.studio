@@ -54,7 +54,7 @@ const StyledSwitchContainer = styled("div", {
     width: "100%",
     height: 24,
     background: "$blue8",
-    border: "1px $slate7 solid",
+    border: "1px $slate8 solid",
 
     transition: "0.4s background-color ease, 0.4s border-color ease",
 
@@ -78,7 +78,7 @@ const StyledSwitchContainer = styled("div", {
         },
 
         "@sm": {
-            background: "linear-gradient(90deg, #E4F2FF 0%, #C5E3FF 100%)",
+            background: "linear-gradient(90deg, #DCEDFF 0%, #B5DBFF 100%)",
         },
     },
 
@@ -301,7 +301,9 @@ const slideOut = keyframes({
     "100%": { transform: "translateX(100%)" },
 });
 
-const StyledLogo = styled("div", {
+const StyledLogo = styled("a", {
+    cursor: "pointer",
+    display: "block",
     zIndex: 10,
     fontSize: "$3",
     fontFamily: "$display",
@@ -517,9 +519,11 @@ export const NavBar = (props: any) => {
 
     return (
         <StyledHeader navBacking={showNavBacking}>
-            <StyledLogo>
-                Modern Age <span>Studio</span>
-            </StyledLogo>
+            <Link href="/" passHref>
+                <StyledLogo>
+                    Modern Age <span>Studio</span>
+                </StyledLogo>
+            </Link>
             <BurgerIcon
                 isActive={navActive === "visible"}
                 onClick={() => {
