@@ -1,5 +1,6 @@
 /** @type {import("@types/tailwindcss/tailwind-config").TailwindConfig } */
 const plugin = require("tailwindcss/plugin");
+const bp = require("./styles/breakpoints");
 
 module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}"],
@@ -17,6 +18,30 @@ module.exports = {
             tight: "var(--lineHeights-tight)",
             normal: "var(--lineHeights-normal)",
             loose: "var(--lineHeights-loose)",
+        },
+        fontSize: {
+            "-2": "var(--fontSizes--2)",
+            "-1": "var(--fontSizes--1)",
+            0: "var(--fontSizes-0)",
+            1: "var(--fontSizes-1)",
+            2: "var(--fontSizes-2)",
+            3: "var(--fontSizes-3)",
+            4: "var(--fontSizes-4)",
+            5: "var(--fontSizes-5)",
+            6: "var(--fontSizes-6)",
+            7: "var(--fontSizes-7)",
+        },
+        fontWeights: {
+            standard: "var(--fontWeights-standard)",
+            heavy: "var(--fontWeights-heavy)",
+        },
+        borderRadius: {
+            xs: "var(--radii-xs)",
+            sm: "var(--radii-sm)", // 4px ish
+            md: "var(--radii-md)", // 8px ish
+            lg: "var(--radii-lg)", // 12px ish
+            xl: "var(--radii-xl)", // 16px ish
+            full: "var(--radii-full)", // a lot
         },
         extend: {
             colors: {
@@ -138,13 +163,11 @@ module.exports = {
             "3xl-4xl": "var(--space-3xl-4xl)",
             "4xl-5xl": "var(--space-4xl-5xl)",
             "5xl-6xl": "var(--space-5xl-6xl)",
+
+            "section-padding": "var(--space-section-padding)",
         },
         screens: {
-            xs: "0",
-            sm: "48rem", // 768
-            md: "64rem", // 1024
-            lg: "80rem", // 1280
-            xl: "90rem", // 1440
+            ...bp.breakpointValues,
         },
     },
     plugins: [

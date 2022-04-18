@@ -101,7 +101,7 @@ const StyledSwitchthumb = styled(Switch.Thumb, {
     boxShadow: "0px 1px 3px rgba(13, 56, 104, 0.22)",
     width: 18,
     height: 18,
-    left: 3,
+    left: 2,
     top: 2,
     overflow: "hidden",
     transition:
@@ -110,7 +110,7 @@ const StyledSwitchthumb = styled(Switch.Thumb, {
     "[data-state=checked] &": {
         background: "$indigo12",
         borderColor: "white",
-        transform: "translateX(23px) rotate(90deg)",
+        transform: "translateX(24px) rotate(90deg)",
     },
 
     "&::before, &::after": {
@@ -509,6 +509,9 @@ export const NavBar = (props: any) => {
     // make nav backing show after scrolling 100px
     const { scrollY } = useViewportScroll();
     useEffect(() => {
+        if (scrollY.get() >= 100) {
+            updateShowNavBacking(true);
+        }
         scrollY.onChange(() => {
             scrollY.get() >= 100
                 ? updateShowNavBacking(true)
@@ -527,11 +530,6 @@ export const NavBar = (props: any) => {
             <BurgerIcon
                 isActive={navActive === "visible"}
                 onClick={() => {
-                    // updateNavActive(
-                    //     !navActive || navActive === "hidden"
-                    //         ? "visible"
-                    //         : "hidden"
-                    // );
                     if (!navActive || navActive === "hidden") {
                         document
                             .querySelector("body")

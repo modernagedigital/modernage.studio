@@ -1,29 +1,19 @@
 import type { NextPage } from "next";
-import Head from "next/head";
 import { styled } from "styles/stitches.config";
 import tw from "twin.macro";
-import { SiteWrapper, HeroSection } from "page-components";
-import { useEffect } from "react";
-
-const StyledLayout = styled("div", {
-    display: "grid",
-    gridTemplateColumns: "repeat(12, 1fr)",
-    gap: 40,
-    background: "red",
-});
-
-const StyledColumn = styled("div", {
-    ...tw`bg-blue-500`,
-    height: 200,
-});
+import {
+    SiteWrapper,
+    HeroSection,
+    Home_DesignSystems,
+    Home_ProductDesign,
+} from "page-components";
 
 const Home: NextPage = () => {
-    useEffect(() => {
-        // document.querySelector("body")?.classList.remove("menu-on");
-    });
     return (
         <SiteWrapper>
             <HeroSection />
+            <Home_DesignSystems />
+            <Home_ProductDesign />
             <br />
             <br />
             <br />
@@ -69,26 +59,6 @@ const Home: NextPage = () => {
             <br />
             <br />
             <br />
-            {/*
-                <StyledLayout>
-                     <div tw="text-hero text-center max-width[17ch] grid-column-start[4] grid-column-end[12] bg-blue-500">
-                        Digital creative solutions for the modern age
-                    </div>
-                    <StyledColumn tw="bg-black grid-column-start[2] column-span[3]">
-                        Col
-                    </StyledColumn>
-                    <StyledColumn>Col</StyledColumn>
-                    <StyledColumn>Col</StyledColumn>
-                    <StyledColumn>Col</StyledColumn>
-                    <StyledColumn>Col</StyledColumn>
-                    <StyledColumn>Col</StyledColumn>
-                    <StyledColumn>Col</StyledColumn>
-                    <StyledColumn>Col</StyledColumn>
-                    <StyledColumn>Col</StyledColumn>
-                    <StyledColumn>Col</StyledColumn>
-                    <StyledColumn>Col</StyledColumn>
-                </StyledLayout>
-                */}
         </SiteWrapper>
     );
 };

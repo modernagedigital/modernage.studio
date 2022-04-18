@@ -5,6 +5,8 @@ import {
     CSS as StitchesCSS,
 } from "@stitches/react";
 
+import breakpoints from "./breakpoints";
+
 import {
     slate,
     slateDark,
@@ -21,6 +23,8 @@ import {
     greenDark,
     red,
     redDark,
+    sky,
+    skyDark,
 } from "@radix-ui/colors";
 
 export type { CSS } from "@stitches/react/types/css-util";
@@ -31,11 +35,8 @@ export const stitches = createStitches({
         ...defaultThemeMap,
     },
     media: {
-        xs: "(min-width: 0)",
-        sm: "(min-width: 48rem)", // 768
-        md: "(min-width: 64rem)", // 1024
-        lg: "(min-width: 80rem)", // 1280
-        xl: "(min-width: 90rem)", // 1440
+        // Core breakpoints:
+        ...breakpoints.breakpoints,
     },
     theme: {
         colors: {
@@ -46,6 +47,7 @@ export const stitches = createStitches({
             ...blue,
             ...indigo,
             ...indigoA,
+            ...sky,
             ...cyan,
             ...green,
             ...red,
@@ -72,7 +74,7 @@ export const stitches = createStitches({
             md: "$space$4xs", // 8px ish
             lg: "$space$3xs", // 12px ish
             xl: "$space$2xs", // 16px ish
-            rounded: "999rem", // a lot
+            full: "999rem", // a lot
         },
         space: {
             // base scale
@@ -110,13 +112,13 @@ export const stitches = createStitches({
             "section-padding": "$space$2xs-xs",
         },
         sizes: {
-            micro: "20rem", // 320
-            xsmall: "30rem", // 480
-            small: "40rem", // 640
-            medium: "60rem", // 960
-            large: "80rem", // 1280
-            xlarge: "90rem", // 1440
-            max: "100rem",
+            "2xs": "20rem", // 320
+            xs: "30rem", // 480
+            sm: "40rem", // 640
+            md: "60rem", // 960
+            lg: "80rem", // 1280
+            xl: "90rem", // 1440
+            "2xl": "100rem", // 1600px
         },
         fontSizes: {
             "-2": "0.75rem",
@@ -146,6 +148,7 @@ export const darkTheme = createTheme("dark", {
         ...cyanDark,
         ...greenDark,
         ...redDark,
+        ...skyDark,
     },
 });
 
