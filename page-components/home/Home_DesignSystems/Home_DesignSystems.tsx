@@ -52,9 +52,11 @@ const StyledEmoji = styled("span", {
 const StyledSection = styled("section", {
     background: "linear-gradient(113.95deg, #0263CB 35.68%, #0174F0 106.17%)",
     display: "grid",
-    minHeight: "clamp(100px, 90vh, 860px)",
-    paddingBlock: "$2xl",
+    "@sm": {
+        height: "clamp(400px, 90vh, 860px)",
+    },
 
+    paddingBlock: "$2xl",
     placeItems: "center",
 
     [`.${darkTheme} &`]: {
@@ -82,7 +84,7 @@ export const Home_DesignSystems = (props: any) => {
         <StyledSection>
             <div tw="grid place-items-center">
                 <StyledIntroText gridBreak="sm">
-                    <div tw="grid-column[1 / span 6] md3:grid-column[2 / span 5] text-center sm:text-left items-center flex flex-col sm:block">
+                    <div tw="grid-column[1 / span 6] md2:grid-column[2 / span 5] text-center sm:text-left items-center flex flex-col sm:block">
                         <h2
                             className="pre-header"
                             tw="text-title3 leading-tightest"
@@ -99,7 +101,7 @@ export const Home_DesignSystems = (props: any) => {
                             building design systems
                         </h3>
                     </div>
-                    <div tw="grid-column[7 / span 6] md3:grid-column[7 / span 5] flex justify-center mt-s sm:mt-0">
+                    <div tw="grid-column[7 / span 6] md2:grid-column[7 / span 5] flex justify-center mt-s sm:mt-0">
                         <p tw="text-center sm:text-left text-white max-width[50ch]">
                             Petierunt uti sibi concilium totius Galliae in diem
                             certam indicere. Lorem ipsum dolor sit amet,

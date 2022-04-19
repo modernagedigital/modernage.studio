@@ -1,27 +1,7 @@
 import { styled, darkTheme } from "styles/stitches.config";
 import { Container } from "layout";
+import { HeadingLockup } from "components";
 import tw from "twin.macro";
-
-const StyledTextLockup = styled("div", {
-    ...tw`flex flex-col text-center sm:text-left gap-5xs items-center sm:items-start sm:gap-0`,
-});
-
-const TextLockup = (props: any) => {
-    const { preHeading, heading, paragraph, ...rest } = props;
-    return (
-        <StyledTextLockup {...rest}>
-            <h2 className="pre-heading" tw="text-title3 leading-tightest">
-                {preHeading}
-            </h2>
-            <h3 className="heading" tw="text-hero leading-tightest">
-                {heading}
-            </h3>
-            <p tw="text-center sm:text-left max-width[50ch] mt-xs">
-                {paragraph}
-            </p>
-        </StyledTextLockup>
-    );
-};
 
 const StyledSection = styled("section", {
     background: "$blue4",
@@ -41,8 +21,11 @@ const StyledTextSection = styled("div", {
     ...tw`sm:grid-column[ 7 / span 6] md3:grid-column[ 7 / span 5]`,
     paddingInline: "$section-padding",
     paddingBlock: "$xl",
+    paddingBottom: "$6xl",
+    minHeight: "clamp(400px, 90vh, 430px)",
     "@sm": {
         padding: 0,
+        minHeight: 0,
     },
 });
 
@@ -87,7 +70,7 @@ export const Home_ProductDesign = (props: any) => {
             >
                 <FeaturedCards />
                 <StyledTextSection>
-                    <TextLockup
+                    <HeadingLockup
                         css={{
                             ".pre-heading": {
                                 color: "$blue11",

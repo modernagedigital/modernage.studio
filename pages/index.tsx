@@ -6,6 +6,8 @@ import {
     HeroSection,
     Home_DesignSystems,
     Home_ProductDesign,
+    Home_Clients,
+    Home_CodeServices,
 } from "page-components";
 
 const Home: NextPage = () => {
@@ -14,37 +16,8 @@ const Home: NextPage = () => {
             <HeroSection />
             <Home_DesignSystems />
             <Home_ProductDesign />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
-            <br />
+            <Home_Clients />
+            <Home_CodeServices />
             <br />
             <br />
             <br />
