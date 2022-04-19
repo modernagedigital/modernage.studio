@@ -83,8 +83,17 @@ const StyledHeading = styled("span", {
         top: "-0.9em",
         transform: "rotate(7deg)",
         transformOrigin: "left bottom",
-        right: "-3.1em",
         height: "2em",
+        right: "-3.5em",
+        "@xs2": {
+            right: "-3.4em",
+        },
+        "@xs3": {
+            right: "-3.2em",
+        },
+        "@sm": {
+            right: "-3.1em",
+        },
     },
 });
 
