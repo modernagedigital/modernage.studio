@@ -13,6 +13,7 @@ import {
     CodeLogo_Webflow,
     CodeLogo_WordPress,
 } from "./assets/CodeLogos";
+import { CodeGraphic } from "./assets/CodeGraphic";
 
 const StyledChevron = styled("svg", {
     ...tw`absolute height[53px] left[50%]`,
@@ -75,22 +76,22 @@ const StyledInnerBottom = styled("div", {
 
 const wiggleWand = keyframes({
     "0%": {
-        transform: "rotate(0deg)",
+        transform: "rotate(0deg) translate(0,0)",
     },
     "10%": {
-        transform: "rotate(-15deg)",
+        transform: "rotate(-15deg) translate(-10px,-10px)",
     },
     "20%": {
-        transform: "rotate(0deg)",
+        transform: "rotate(0deg) translate(0,0)",
     },
     "30%": {
-        transform: "rotate(-15deg)",
+        transform: "rotate(-15deg) translate(-10px,-10px)",
     },
     "40%": {
-        transform: "rotate(0deg)",
+        transform: "rotate(0deg) translate(0,0)",
     },
     "100%": {
-        transform: "rotate(0deg)",
+        transform: "rotate(0deg) translate(0,0)",
     },
 });
 
@@ -165,12 +166,13 @@ export const Home_CodeServices = (props: any) => {
         <StyledSection>
             <StyledInnerTop>
                 <Container
-                    gridBreak={"sm"}
+                    gridBreak={"xs"}
                     css={{
-                        ...tw`space-y-m-l`,
+                        rowGap: "$xl",
+                        "@sm": {},
                     }}
                 >
-                    <div tw="grid-column[span 6] md2:grid-column[2 / span 6] relative">
+                    <div tw="grid-column[span 12] sm:grid-column[span 6] md2:grid-column[2 / span 6] relative grid items-center order-2 sm:order-1">
                         <HeadingLockup
                             preHeading="Geeks and proud"
                             heading={
@@ -197,6 +199,9 @@ export const Home_CodeServices = (props: any) => {
                                 },
                             }}
                         />
+                    </div>
+                    <div tw="grid-column[span 12] sm:grid-column[7 / span 6] md2:grid-column[8 / span 4] grid place-items-center order-1 sm:order-2">
+                        <CodeGraphic />
                     </div>
                 </Container>
 

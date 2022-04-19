@@ -7,10 +7,13 @@ export const Container = styled("div", {
     paddingInline: "var(--side-padding)",
     margin: "0 auto",
     gridTemplateColumns: "repeat(12, 1fr)",
-    gap: 40,
+    gap: "$space$m",
 
     variants: {
         gridBreak: {
+            xs: {
+                display: "grid",
+            },
             sm: {
                 "@sm": {
                     display: "grid",
