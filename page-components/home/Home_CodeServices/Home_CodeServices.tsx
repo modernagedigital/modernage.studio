@@ -1,4 +1,4 @@
-import { styled, darkTheme } from "styles/stitches.config";
+import { styled, darkTheme, keyframes } from "styles/stitches.config";
 import { Container } from "layout";
 import { HeadingLockup, CodeCard } from "components";
 import { MagicSVG } from "./assets/MagicSVG";
@@ -73,6 +73,58 @@ const StyledInnerBottom = styled("div", {
     paddingBlock: "$3xl",
 });
 
+const wiggleWand = keyframes({
+    "0%": {
+        transform: "rotate(0deg)",
+    },
+    "10%": {
+        transform: "rotate(-15deg)",
+    },
+    "20%": {
+        transform: "rotate(0deg)",
+    },
+    "30%": {
+        transform: "rotate(-15deg)",
+    },
+    "40%": {
+        transform: "rotate(0deg)",
+    },
+    "100%": {
+        transform: "rotate(0deg)",
+    },
+});
+
+const starBurst = keyframes({
+    "0%": {
+        opacity: 0,
+        transform: "scale(0)",
+    },
+    "25%": {
+        opacity: 1,
+        transform: "scale(0.75)",
+    },
+    "30%": {
+        opacity: 0,
+        transform: "scale(1)",
+    },
+    "35%": {
+        opacity: 0,
+        transform: "scale(0)",
+    },
+    "40%": {
+        opacity: 1,
+        transform: "scale(0.75)",
+    },
+    "50%": {
+        opacity: 0,
+        transform: "scale(1)",
+    },
+    "100%": {
+        opacity: 0,
+        transform: "scale(1)",
+    },
+});
+
 const StyledHeading = styled("span", {
     ".graphic": {
         position: "relative",
@@ -85,6 +137,16 @@ const StyledHeading = styled("span", {
         transformOrigin: "left bottom",
         height: "2em",
         right: "-3.5em",
+        ".wand": {
+            transformOrigin: "left bottom",
+            animation: `${wiggleWand} 2000ms ease`,
+            animationIterationCount: "infinite",
+        },
+        ".stars": {
+            transformOrigin: "center center",
+            animation: `${starBurst} 2000ms linear`,
+            animationIterationCount: "infinite",
+        },
         "@xs2": {
             right: "-3.4em",
         },

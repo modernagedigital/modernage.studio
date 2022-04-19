@@ -1,4 +1,4 @@
-import { styled, darkTheme } from "styles/stitches.config";
+import { styled, darkTheme, CSS } from "styles/stitches.config";
 import tw from "twin.macro";
 
 const StyledCodeCard = styled("article", {
@@ -32,6 +32,7 @@ type CodeCardProps = {
     heading: string;
     logo: React.ReactNode;
     rest?: any;
+    css?: object;
 };
 export const CodeCard = (props: CodeCardProps) => {
     const { paragraph, heading, logo, rest } = props;
