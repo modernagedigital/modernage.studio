@@ -94,19 +94,19 @@ export const stitches = createStitches({
             "6xl": "clamp(4.50rem, calc(4.00rem + 2.50vw), 6.00rem)", // 96px
 
             // One-up scales
-            "5xs-4xs": "clamp(0.19rem, calc(0.08rem + 0.52vw), 0.50rem)",
-            "4xs-3xs": "clamp(0.38rem, calc(0.25rem + 0.63vw), 0.75rem)",
-            "3xs-2xs": "clamp(0.56rem, calc(0.42rem + 0.73vw), 1.00rem)",
-            "2xs-xs": "clamp(0.75rem, calc(0.50rem + 1.25vw), 1.50rem)",
-            "xs-s": "clamp(1.13rem, calc(0.83rem + 1.46vw), 2.00rem)",
-            "s-m": "clamp(1.50rem, calc(1.17rem + 1.67vw), 2.50rem)",
-            "m-l": "clamp(1.88rem, calc(1.50rem + 1.88vw), 3.00rem)",
-            "l-xl": "clamp(2.25rem, calc(1.83rem + 2.08vw), 3.50rem)",
-            "xl-2xl": "clamp(2.63rem, calc(2.17rem + 2.29vw), 4.00rem)",
-            "2xl-3xl": "clamp(3.00rem, calc(2.50rem + 2.50vw), 4.50rem)",
-            "3xl-4xl": "clamp(3.38rem, calc(2.83rem + 2.71vw), 5.00rem)",
-            "4xl-5xl": "clamp(3.75rem, calc(3.17rem + 2.92vw), 5.50rem)",
-            "5xl-6xl": "clamp(4.13rem, calc(3.50rem + 3.13vw), 6.00rem)",
+            "5xs-4xs": "clamp(0.19rem, calc(0.08rem + 0.52vw), 0.50rem)", // 4px -> 8px
+            "4xs-3xs": "clamp(0.38rem, calc(0.25rem + 0.63vw), 0.75rem)", // 8px -> 12px
+            "3xs-2xs": "clamp(0.56rem, calc(0.42rem + 0.73vw), 1.00rem)", // 12px -> 16px
+            "2xs-xs": "clamp(0.75rem, calc(0.50rem + 1.25vw), 1.50rem)", // 16px -> 24px
+            "xs-s": "clamp(1.13rem, calc(0.83rem + 1.46vw), 2.00rem)", // 24px -> 32px
+            "s-m": "clamp(1.50rem, calc(1.17rem + 1.67vw), 2.50rem)", // 32px -> 40px
+            "m-l": "clamp(1.88rem, calc(1.50rem + 1.88vw), 3.00rem)", // 40px -> 48px
+            "l-xl": "clamp(2.25rem, calc(1.83rem + 2.08vw), 3.50rem)", // 48px -> 56px
+            "xl-2xl": "clamp(2.63rem, calc(2.17rem + 2.29vw), 4.00rem)", // 56px -> 64px
+            "2xl-3xl": "clamp(3.00rem, calc(2.50rem + 2.50vw), 4.50rem)", // 64px -> 72px
+            "3xl-4xl": "clamp(3.38rem, calc(2.83rem + 2.71vw), 5.00rem)", // 72px -> 80px
+            "4xl-5xl": "clamp(3.75rem, calc(3.17rem + 2.92vw), 5.50rem)", // 80px -> 88px
+            "5xl-6xl": "clamp(4.13rem, calc(3.50rem + 3.13vw), 6.00rem)", // 88px -> 96px
 
             // Customs
             "section-padding": "$space$2xs-xs",

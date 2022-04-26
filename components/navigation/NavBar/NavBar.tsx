@@ -5,11 +5,11 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import * as Switch from "@radix-ui/react-switch";
 import { indigoA } from "@radix-ui/colors";
 import { useState, useEffect } from "react";
-import { useViewportScroll } from "framer-motion";
 import { useTheme } from "next-themes";
 import SwitchBg from "assets/images/switch-bg.svg";
 import SunIcon from "assets/images/sun.svg";
 import MoonIcon from "assets/images/moon.svg";
+import { useWindowScroll } from "react-use";
 
 const StyledSwitchRoot = styled(Switch.Root, {
     width: 48,
@@ -506,19 +506,10 @@ export const NavBar = (props: any) => {
 
     const [showNavBacking, updateShowNavBacking] = useState(false);
 
-    // make nav backing show after scrolling 100px
-    const { scrollY } = useViewportScroll();
+    const { y } = useWindowScroll();
     useEffect(() => {
-        if (scrollY.get() >= 100) {
-            updateShowNavBacking(true);
-        }
-        scrollY.onChange(() => {
-            scrollY.get() >= 100
-                ? updateShowNavBacking(true)
-                : updateShowNavBacking(false);
-            console.log(scrollY);
-        });
-    }, [scrollY]);
+        y >= 100 ? updateShowNavBacking(true) : updateShowNavBacking(false);
+    }, [y]);
 
     return (
         <StyledHeader navBacking={showNavBacking}>
