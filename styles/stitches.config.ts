@@ -5,6 +5,8 @@ import {
     CSS as StitchesCSS,
 } from "@stitches/react";
 
+import breakpoints from "./breakpoints";
+
 import {
     slate,
     slateDark,
@@ -21,6 +23,8 @@ import {
     greenDark,
     red,
     redDark,
+    sky,
+    skyDark,
 } from "@radix-ui/colors";
 
 export type { CSS } from "@stitches/react/types/css-util";
@@ -31,16 +35,11 @@ export const stitches = createStitches({
         ...defaultThemeMap,
     },
     media: {
-        xs: "(min-width: 0)",
-        sm: "(min-width: 48rem)", // 768
-        md: "(min-width: 64rem)", // 1024
-        lg: "(min-width: 80rem)", // 1280
-        xl: "(min-width: 90rem)", // 1440
+        // Core breakpoints:
+        ...breakpoints.breakpoints,
     },
     theme: {
         colors: {
-            primary: "blue",
-            background: "white",
             white: "#fff",
             black: "#000",
             ...slate,
@@ -48,6 +47,7 @@ export const stitches = createStitches({
             ...blue,
             ...indigo,
             ...indigoA,
+            ...sky,
             ...cyan,
             ...green,
             ...red,
@@ -74,7 +74,7 @@ export const stitches = createStitches({
             md: "$space$4xs", // 8px ish
             lg: "$space$3xs", // 12px ish
             xl: "$space$2xs", // 16px ish
-            rounded: "999rem", // a lot
+            full: "999rem", // a lot
         },
         space: {
             // base scale
@@ -94,31 +94,31 @@ export const stitches = createStitches({
             "6xl": "clamp(4.50rem, calc(4.00rem + 2.50vw), 6.00rem)", // 96px
 
             // One-up scales
-            "5xs-4xs": "clamp(0.19rem, calc(0.08rem + 0.52vw), 0.50rem)",
-            "4xs-3xs": "clamp(0.38rem, calc(0.25rem + 0.63vw), 0.75rem)",
-            "3xs-2xs": "clamp(0.56rem, calc(0.42rem + 0.73vw), 1.00rem)",
-            "2xs-xs": "clamp(0.75rem, calc(0.50rem + 1.25vw), 1.50rem)",
-            "xs-s": "clamp(1.13rem, calc(0.83rem + 1.46vw), 2.00rem)",
-            "s-m": "clamp(1.50rem, calc(1.17rem + 1.67vw), 2.50rem)",
-            "m-l": "clamp(1.88rem, calc(1.50rem + 1.88vw), 3.00rem)",
-            "l-xl": "clamp(2.25rem, calc(1.83rem + 2.08vw), 3.50rem)",
-            "xl-2xl": "clamp(2.63rem, calc(2.17rem + 2.29vw), 4.00rem)",
-            "2xl-3xl": "clamp(3.00rem, calc(2.50rem + 2.50vw), 4.50rem)",
-            "3xl-4xl": "clamp(3.38rem, calc(2.83rem + 2.71vw), 5.00rem)",
-            "4xl-5xl": "clamp(3.75rem, calc(3.17rem + 2.92vw), 5.50rem)",
-            "5xl-6xl": "clamp(4.13rem, calc(3.50rem + 3.13vw), 6.00rem)",
+            "5xs-4xs": "clamp(0.19rem, calc(0.08rem + 0.52vw), 0.50rem)", // 4px -> 8px
+            "4xs-3xs": "clamp(0.38rem, calc(0.25rem + 0.63vw), 0.75rem)", // 8px -> 12px
+            "3xs-2xs": "clamp(0.56rem, calc(0.42rem + 0.73vw), 1.00rem)", // 12px -> 16px
+            "2xs-xs": "clamp(0.75rem, calc(0.50rem + 1.25vw), 1.50rem)", // 16px -> 24px
+            "xs-s": "clamp(1.13rem, calc(0.83rem + 1.46vw), 2.00rem)", // 24px -> 32px
+            "s-m": "clamp(1.50rem, calc(1.17rem + 1.67vw), 2.50rem)", // 32px -> 40px
+            "m-l": "clamp(1.88rem, calc(1.50rem + 1.88vw), 3.00rem)", // 40px -> 48px
+            "l-xl": "clamp(2.25rem, calc(1.83rem + 2.08vw), 3.50rem)", // 48px -> 56px
+            "xl-2xl": "clamp(2.63rem, calc(2.17rem + 2.29vw), 4.00rem)", // 56px -> 64px
+            "2xl-3xl": "clamp(3.00rem, calc(2.50rem + 2.50vw), 4.50rem)", // 64px -> 72px
+            "3xl-4xl": "clamp(3.38rem, calc(2.83rem + 2.71vw), 5.00rem)", // 72px -> 80px
+            "4xl-5xl": "clamp(3.75rem, calc(3.17rem + 2.92vw), 5.50rem)", // 80px -> 88px
+            "5xl-6xl": "clamp(4.13rem, calc(3.50rem + 3.13vw), 6.00rem)", // 88px -> 96px
 
             // Customs
             "section-padding": "$space$2xs-xs",
         },
         sizes: {
-            micro: "20rem", // 320
-            xsmall: "30rem", // 480
-            small: "40rem", // 640
-            medium: "60rem", // 960
-            large: "80rem", // 1280
-            xlarge: "90rem", // 1440
-            max: "100rem",
+            "2xs": "20rem", // 320
+            xs: "30rem", // 480
+            sm: "40rem", // 640
+            md: "60rem", // 960
+            lg: "80rem", // 1280
+            xl: "90rem", // 1440
+            "2xl": "100rem", // 1600px
         },
         fontSizes: {
             "-2": "0.75rem",
@@ -148,6 +148,7 @@ export const darkTheme = createTheme("dark", {
         ...cyanDark,
         ...greenDark,
         ...redDark,
+        ...skyDark,
     },
 });
 

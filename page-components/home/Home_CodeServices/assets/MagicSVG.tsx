@@ -1,0 +1,126 @@
+import { styled } from "styles/stitches.config";
+
+const StyledMagicSVG = styled("svg", {});
+export const MagicSVG = () => {
+    return (
+        <StyledMagicSVG
+            width={194}
+            height={204}
+            viewBox="0 0 194 204"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <g className="stars">
+                <path
+                    d="M106 34L109.781 44.2187L120 48L109.781 51.7813L106 62L102.219 51.7813L92 48L102.219 44.2187L106 34Z"
+                    fill="#0081F1"
+                />
+                <path
+                    d="M106 40L108.161 45.8393L114 48L108.161 50.1607L106 56L103.839 50.1607L98 48L103.839 45.8393L106 40Z"
+                    fill="#96C7F2"
+                />
+                <path
+                    d="M158 90L160.161 95.8393L166 98L160.161 100.161L158 106L155.839 100.161L150 98L155.839 95.8393L158 90Z"
+                    fill="#0081F1"
+                />
+                <path
+                    d="M158 94L159.08 96.9196L162 98L159.08 99.0804L158 102L156.92 99.0804L154 98L156.92 96.9196L158 94Z"
+                    fill="#96C7F2"
+                />
+                <path
+                    d="M162 35L163.891 40.1094L169 42L163.891 43.8906L162 49L160.109 43.8906L155 42L160.109 40.1094L162 35Z"
+                    fill="#0081F1"
+                />
+                <path
+                    d="M162 38L163.08 40.9196L166 42L163.08 43.0804L162 46L160.92 43.0804L158 42L160.92 40.9196L162 38Z"
+                    fill="#96C7F2"
+                />
+            </g>
+            <g className="wand">
+                <circle
+                    cx={102}
+                    cy={92}
+                    r={92}
+                    fill="url(#paint0_radial_264_5045)"
+                />
+                <circle
+                    cx={102}
+                    cy={92}
+                    r={36}
+                    fill="url(#paint1_radial_264_5045)"
+                />
+                <path
+                    d="M3.57527 196.639C2.05361 194.557 2.6122 191.696 4.43635 189.873L83.9505 110.397L93.1232 119.569L13.6335 199.021C11.7975 200.856 8.91227 201.41 6.81576 199.88C5.55518 198.959 4.52802 197.943 3.57527 196.639Z"
+                    fill="url(#paint2_linear_264_5045)"
+                />
+                <path
+                    d="M82.5166 111.791L98.2634 96.0442C100.044 94.2634 102.807 93.6936 104.919 95.0653C106.651 96.1903 107.81 97.347 108.725 98.7683C110.008 100.762 109.341 103.352 107.664 105.028L91.709 120.983C89.0838 116.797 87.0772 114.76 82.5166 111.791Z"
+                    fill="url(#paint3_linear_264_5045)"
+                />
+            </g>
+            <defs>
+                <radialGradient
+                    id="paint0_radial_264_5045"
+                    cx={0}
+                    cy={0}
+                    r={1}
+                    gradientUnits="userSpaceOnUse"
+                    gradientTransform="translate(102 92) rotate(90) scale(92)"
+                >
+                    <stop offset="0.0104167" stopColor="#0066FF" />
+                    <stop
+                        offset="0.729167"
+                        stopColor="#0D3868"
+                        stopOpacity={0}
+                    />
+                </radialGradient>
+                <radialGradient
+                    id="paint1_radial_264_5045"
+                    cx={0}
+                    cy={0}
+                    r={1}
+                    gradientUnits="userSpaceOnUse"
+                    gradientTransform="translate(104.5 94.5) rotate(90) scale(32.5)"
+                >
+                    <stop
+                        offset="0.213542"
+                        stopColor="#2EAFFF"
+                        stopOpacity="0.838542"
+                    />
+                    <stop
+                        offset="0.276042"
+                        stopColor="#2EAFFF"
+                        stopOpacity="0.838542"
+                    />
+                    <stop offset={1} stopColor="#104D92" stopOpacity={0} />
+                </radialGradient>
+                <linearGradient
+                    id="paint2_linear_264_5045"
+                    x1="35.0929"
+                    y1="159.254"
+                    x2="44.2655"
+                    y2="168.427"
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop stopColor="#729AD5" />
+                    <stop offset="0.276042" stopColor="#E7F6FF" />
+                    <stop offset="0.572917" stopColor="#98B6EF" />
+                    <stop offset="0.890625" stopColor="#4070A8" />
+                </linearGradient>
+                <linearGradient
+                    id="paint3_linear_264_5045"
+                    x1="92.4161"
+                    y1="101.892"
+                    x2="101.608"
+                    y2="111.084"
+                    gradientUnits="userSpaceOnUse"
+                >
+                    <stop stopColor="#D1E4FF" />
+                    <stop offset="0.276042" stopColor="white" />
+                    <stop offset="0.567708" stopColor="#DDE4FF" />
+                    <stop offset="0.895833" stopColor="#A3CDFF" />
+                </linearGradient>
+            </defs>
+        </StyledMagicSVG>
+    );
+};

@@ -1,0 +1,1 @@
+export { HeadingLockup } from "./HeadingLockup";

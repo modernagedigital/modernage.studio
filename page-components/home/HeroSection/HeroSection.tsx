@@ -1,6 +1,6 @@
-import { styled, darkTheme } from "styles/stitches.config";
+import { styled, darkTheme, css, keyframes } from "styles/stitches.config";
 import tw from "twin.macro";
-import { LinkButton } from "components";
+import { LinkButton, ChevronDown } from "components";
 
 const StyledWrapper = styled("section", {
     // base tailwind styles
@@ -94,6 +94,13 @@ const StyledBackground = styled("div", {
     },
 });
 
+const bounceY = keyframes({
+    "0%": { transform: "translateY(-5px)" },
+    "35%": { transform: "translateY(5px)" },
+    "70%": { transform: "translateY(-5px)" },
+    "100%": { transform: "translateY(-5px)" },
+});
+
 export const HeroSection = (props: any) => {
     return (
         <StyledWrapper>
@@ -116,6 +123,17 @@ export const HeroSection = (props: any) => {
                     Let's chat
                 </LinkButton>
             </div>
+            <ChevronDown
+                css={{
+                    ...tw`absolute bottom-l z-20`,
+                    width: 32,
+                    animation: `${bounceY} 1200ms ease`,
+                    animationIterationCount: "infinite",
+                    path: {
+                        fill: "$blue8",
+                    },
+                }}
+            />
         </StyledWrapper>
     );
 };

@@ -2,20 +2,149 @@ import Link from "next/link";
 import tw from "twin.macro";
 import { styled, darkTheme, keyframes } from "styles/stitches.config";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import { indigoA, indigoDark, indigoDarkA } from "@radix-ui/colors";
+import * as Switch from "@radix-ui/react-switch";
+import { indigoA } from "@radix-ui/colors";
 import { useState, useEffect } from "react";
-import burgerBg from "assets/images/burger-bg.png";
-import { useViewportScroll } from "framer-motion";
+import { useTheme } from "next-themes";
+import SwitchBg from "assets/images/switch-bg.svg";
+import SunIcon from "assets/images/sun.svg";
+import MoonIcon from "assets/images/moon.svg";
+import { useWindowScroll } from "react-use";
 
-const StyledThemeToggler = styled("div", {
-    ...tw`rounded-full`,
-    background: "blue",
-    width: 24,
+const StyledSwitchRoot = styled(Switch.Root, {
+    width: 48,
+    height: 40,
+    position: "relative",
+    overflow: "hidden",
+    marginTop: "$3xs",
+    marginLeft: "$4xs",
+    "@sm": {
+        margin: 0,
+    },
+    "&::before": {
+        ...tw`block content absolute rounded-full opacity-75`,
+        top: 9,
+        left: 1,
+        width: 46,
+        height: 22,
+
+        zIndex: 15,
+        backgroundImage: `url("${SwitchBg.src}")`,
+        backgroundRepeat: "no-repeat",
+        transition: "0.3s background-position ease",
+        backgroundPosition: "-40px 0",
+        backgroundSize: "88px 24px",
+    },
+
+    "&[data-state=checked]::before": {
+        backgroundPosition: "0px 0",
+    },
+
+    "&:focus-visible": {
+        outline: 0,
+
+        div: {
+            outline: "2px solid blue",
+        },
+    },
+});
+
+const StyledSwitchContainer = styled("div", {
+    ...tw`absolute inset-y-[8px] inset-x-[0] rounded-full`,
+    width: "100%",
     height: 24,
-    position: "absolute",
-    right: 16,
-    bottom: -216,
-    zIndex: 1000,
+    background: "$blue8",
+    border: "1px $slate8 solid",
+
+    transition: "0.4s background-color ease, 0.4s border-color ease",
+
+    "[data-state=checked] &": {
+        border: "1px $indigo10 solid",
+        background: "$indigo7",
+    },
+
+    "@sm": {
+        background: "$blue3",
+    },
+
+    "&::before": {
+        ...tw`block content inset-x-[1px] inset-y-[1px] absolute rounded-full`,
+        background: "linear-gradient(90deg, #B8DBFF 0%, #78BEFF 100%)",
+        opacity: 1,
+        transition: "0.4s opacity ease",
+
+        "[data-state=checked] &": {
+            opacity: 0,
+        },
+
+        "@sm": {
+            background: "linear-gradient(90deg, #DCEDFF 0%, #B5DBFF 100%)",
+        },
+    },
+
+    "&::after": {
+        ...tw`block content inset-x-[1px] inset-y-[1px] absolute rounded-full z-10`,
+        background: "linear-gradient(90deg, #325DEE 0%, #AC51CC 100%)",
+        opacity: 0,
+        transition: "0.4s opacity ease",
+
+        "[data-state=checked] &": {
+            opacity: 1,
+        },
+    },
+});
+
+const StyledSwitchthumb = styled(Switch.Thumb, {
+    ...tw`rounded-full absolute z-20`,
+    border: "1px $blue1 solid",
+    backgroundColor: "$blue2",
+    boxShadow: "0px 1px 3px rgba(13, 56, 104, 0.22)",
+    width: 18,
+    height: 18,
+    left: 2,
+    top: 2,
+    overflow: "hidden",
+    transition:
+        "0.4s transform ease, 0.4s background-color ease, 0.4s border-color ease",
+
+    "[data-state=checked] &": {
+        background: "$indigo12",
+        borderColor: "white",
+        transform: "translateX(24px) rotate(90deg)",
+    },
+
+    "&::before, &::after": {
+        ...tw`content absolute block`,
+        width: 12,
+        height: 12,
+        left: 2,
+        top: 2,
+        transition: "0.4s transform ease, 0.4s left ease",
+    },
+
+    // Sun
+    "&::before": {
+        background: `url(${SunIcon.src}) no-repeat center`,
+        backgroundSize: "100%",
+        transform: "rotate(45deg)",
+    },
+
+    // moon
+    "&::after": {
+        background: `url(${MoonIcon.src}) no-repeat center`,
+        backgroundSize: "100%",
+        transform: "rotate(-90deg)",
+        left: -20,
+    },
+
+    "[data-state=checked] &::before": {
+        left: 20,
+        // transform: "rotate(0deg)",
+    },
+    "[data-state=checked] &::after": {
+        left: 2,
+        // transform: "rotate(0deg)",
+    },
 });
 
 // burger icon
@@ -172,16 +301,26 @@ const slideOut = keyframes({
     "100%": { transform: "translateX(100%)" },
 });
 
-const StyledLogo = styled("div", {
+const StyledLogo = styled("a", {
+    cursor: "pointer",
+    display: "block",
     zIndex: 10,
     fontSize: "$3",
     fontFamily: "$display",
     lineHeight: "$tighter",
     letterSpacing: "-0.02em",
     color: "$indigo12",
+    transition: "0.25s transform ease",
 
     span: {
         color: "$blue11",
+    },
+    ".menu-on &": {
+        transform: "translateX(calc(var(--mobile-nav-width)* -1))",
+
+        "@sm": {
+            transform: "none",
+        },
     },
 });
 
@@ -194,12 +333,24 @@ const StyledLink = styled(NavigationMenu.Link, {
     "@md": {
         fontSize: "$0",
     },
+
+    variants: {
+        active: {
+            true: {
+                color: "$blue6",
+
+                "@sm": {
+                    color: "$blue11",
+                },
+            },
+        },
+    },
 });
 
 const StyledNav = styled(NavigationMenu.Root, {
-    ...tw`fixed inset-0 z-50 p-s-m`,
+    ...tw`fixed inset-0 z-50 p-s-m sm:flex items-center gap-xs`,
     left: "auto",
-    width: "clamp(240px, 80vw, 380px)",
+    width: "var(--mobile-nav-width)",
     background: indigoA.indigoA12,
     color: "white",
     height: "100vh",
@@ -231,12 +382,12 @@ const StyledNav = styled(NavigationMenu.Root, {
     variants: {
         menuState: {
             visible: {
-                animation: `${slideIn} 200ms`,
+                animation: `${slideIn} 250ms`,
                 animationFillMode: "forwards",
             },
             hidden: {
                 animationFillMode: "forwards",
-                animation: `${slideOut} 200ms`,
+                animation: `${slideOut} 250ms`,
             },
         },
     },
@@ -260,6 +411,15 @@ type NavMenuProps = {
 
 const NavMenu = (props: NavMenuProps) => {
     const { menuState } = props;
+
+    // Theming
+    const [mounted, setMounted] = useState(false);
+    const { setTheme, resolvedTheme } = useTheme();
+
+    // When mounted on client, now we can show the UI
+    useEffect(() => setMounted(true), []);
+
+    if (!mounted) return null;
 
     return (
         <StyledNav menuState={menuState}>
@@ -292,6 +452,17 @@ const NavMenu = (props: NavMenuProps) => {
                     </Link>
                 </NavigationMenu.Item>
             </StyledList>
+
+            <StyledSwitchRoot
+                checked={resolvedTheme === "dark"}
+                onCheckedChange={() => {
+                    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+                }}
+            >
+                <StyledSwitchContainer>
+                    <StyledSwitchthumb />
+                </StyledSwitchContainer>
+            </StyledSwitchRoot>
         </StyledNav>
     );
 };
@@ -335,34 +506,36 @@ export const NavBar = (props: any) => {
 
     const [showNavBacking, updateShowNavBacking] = useState(false);
 
-    // make nav backing show after scrolling 100px
-    const { scrollY } = useViewportScroll();
+    const { y } = useWindowScroll();
     useEffect(() => {
-        scrollY.onChange(() => {
-            scrollY.get() >= 100
-                ? updateShowNavBacking(true)
-                : updateShowNavBacking(false);
-            console.log(scrollY);
-        });
-    }, [scrollY]);
+        y >= 100 ? updateShowNavBacking(true) : updateShowNavBacking(false);
+    }, [y]);
+
     return (
         <StyledHeader navBacking={showNavBacking}>
-            <StyledLogo>
-                Modern Age <span>Studio</span>
-            </StyledLogo>
+            <Link href="/" passHref>
+                <StyledLogo>
+                    Modern Age <span>Studio</span>
+                </StyledLogo>
+            </Link>
             <BurgerIcon
                 isActive={navActive === "visible"}
                 onClick={() => {
-                    updateNavActive(
-                        !navActive || navActive === "hidden"
-                            ? "visible"
-                            : "hidden"
-                    );
+                    if (!navActive || navActive === "hidden") {
+                        document
+                            .querySelector("body")
+                            ?.classList.add("menu-on");
+                        updateNavActive("visible");
+                    } else {
+                        document
+                            .querySelector("body")
+                            ?.classList.remove("menu-on");
+                        updateNavActive("hidden");
+                    }
                 }}
             />
 
             <NavMenu menuState={navActive} />
-            <StyledThemeToggler onClick={onThemeToggle} />
         </StyledHeader>
     );
 };
