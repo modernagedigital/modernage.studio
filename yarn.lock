@@ -1472,10 +1472,9 @@ graceful-fs@^4.1.6, graceful-fs@^4.2.0:
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.10.tgz#147d3a006da4ca3ce14728c7aefc287c367d7a6c"
   integrity sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==
 
-"gsap@npm:@gsap/shockingly":
-  version "3.10.3"
-  resolved "https://npm.greensock.com/@gsap%2fshockingly/-/shockingly-3.10.3.tgz#b0218f9264d736373af9074685abe868928e00ce"
-  integrity sha512-M1n1KhjKnZfvOLP/C5hI6xoM+5F64IS/QrTFSXbuUYgemuOrrBiBdlmNwpwfBri0tENqc4MkWgJwkrP/KEIpaQ==
+"gsap@file:gsap-bonus.tgz":
+  version "3.10.4"
+  resolved "file:gsap-bonus.tgz#6654c9ce70521e5be54cd087bbfb2cf09678f04b"
 
 has-bigints@^1.0.1:
   version "1.0.2"
