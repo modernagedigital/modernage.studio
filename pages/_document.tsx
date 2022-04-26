@@ -11,6 +11,7 @@ export default function Document() {
                     id="stitches"
                     dangerouslySetInnerHTML={{ __html: getCssText() }}
                 />
+                <meta name="robots" content="noindex" />
                 <link rel="preconnect" href="https://fonts.googleapis.com" />
                 <link
                     rel="preconnect"
