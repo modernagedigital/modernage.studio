@@ -123,12 +123,20 @@ export const HeroSection = (props: any) => {
     const title = useRef(null);
     const introPara = useRef(null);
     const introButton = useRef(null);
+    const titleWrapper = useRef(null);
     const q = gsap.utils.selector(title);
 
     useEffect(() => {
         let introWords1 = q(".intro-word-1");
         let introWords2 = q(".intro-word-2");
-        let tl = gsap.timeline();
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: titleWrapper.current,
+                start: "center 75%",
+                toggleActions: "play complete none none",
+                // markers: true,
+            },
+        });
         // Target ALL descendants with the class of .intro-word
         tl.fromTo(
             introWords1,
@@ -140,10 +148,10 @@ export const HeroSection = (props: any) => {
             {
                 y: 0,
                 opacity: 1,
-                stagger: 0.3,
+                stagger: 0.2,
                 filter: "blur(0px)",
                 delay: 0.1,
-                duration: 1,
+                duration: 0.75,
                 ease: "power4.out",
             }
         )
@@ -158,9 +166,9 @@ export const HeroSection = (props: any) => {
                     y: 0,
                     filter: "blur(0px)",
                     opacity: 1,
-                    stagger: 0.25,
-                    delay: -0.25,
-                    duration: 1,
+                    stagger: 0.2,
+                    delay: -0.2,
+                    duration: 0.75,
                     ease: "power4.out",
                 }
             )
@@ -168,7 +176,6 @@ export const HeroSection = (props: any) => {
                 opacity: 1,
                 y: 0,
                 duration: 0.4,
-                delay: 0.5,
             })
             .to(introButton.current, {
                 opacity: 1,
@@ -184,7 +191,10 @@ export const HeroSection = (props: any) => {
                 <div className="gradient2" />
             </StyledBackground>
 
-            <div tw="space-y-s-m flex items-center flex-col relative z-20">
+            <div
+                tw="space-y-s-m flex items-center flex-col relative z-20"
+                ref={titleWrapper}
+            >
                 <h1 tw="text-hero text-center max-width[18ch]" ref={title}>
                     <span className="intro-word-1">Digital</span>{" "}
                     <span className="intro-word-1">creative</span>{" "}

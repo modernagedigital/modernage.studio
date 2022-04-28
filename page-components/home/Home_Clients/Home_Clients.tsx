@@ -4,6 +4,12 @@ import { HeadingLockup } from "components";
 import tw from "twin.macro";
 import Image from "next/image";
 
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useEffect, useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
+
 import { Logo_BBC } from "../assets/logos/Logo_BBC";
 import { Logo_BlackHorse } from "../assets/logos/Logo_BlackHorse";
 import { Logo_C4 } from "../assets/logos/Logo_C4";
@@ -59,6 +65,7 @@ const StyledLogoCard = styled("div", {
     position: "relative",
     overflow: "hidden",
     height: "$space$5xl-6xl",
+    opacity: 0.3,
 
     svg: {
         position: "absolute",
@@ -79,6 +86,31 @@ const StyledLogoCard = styled("div", {
 
 export const Home_Clients = (props: any) => {
     const { children } = props;
+    const revealContainer = useRef(null);
+    const q = gsap.utils.selector(revealContainer);
+
+    useEffect(() => {
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: revealContainer.current,
+                start: "top, 75%",
+            },
+        });
+        tl.fromTo(
+            q("div"),
+            {
+                opacity: 0,
+                scale: 0.75,
+            },
+            {
+                opacity: 1,
+                scale: 1,
+                stagger: 0.05,
+                duration: 1,
+                ease: "power4.out",
+            }
+        );
+    }, []);
     return (
         <StyledSection>
             <Container
@@ -109,7 +141,7 @@ export const Home_Clients = (props: any) => {
                         },
                     }}
                 />
-                <StyledLogoWall>
+                <StyledLogoWall ref={revealContainer}>
                     <StyledLogoCard
                         children={
                             <Logo_Sky
