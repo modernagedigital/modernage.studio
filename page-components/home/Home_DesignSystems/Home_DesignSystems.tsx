@@ -54,7 +54,7 @@ const StyledEmoji = styled("span", {
         overflow: "visible",
     },
     ".left-eye": {
-        transform: "scale(1.2)",
+        // transform: "scale(1.2)",
         transformOrigin: "center center",
         background: "red",
     },
