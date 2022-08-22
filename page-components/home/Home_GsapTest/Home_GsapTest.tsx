@@ -35,6 +35,7 @@ export const Home_GsapTest = (props: any) => {
     const box = useRef(null);
     const text = useRef(null);
     const split = useRef(null);
+    const splitWrapper = useRef(null);
 
     // splitText
     useEffect(() => {
@@ -42,10 +43,11 @@ export const Home_GsapTest = (props: any) => {
         let chars = mySplitText.chars;
         gsap.from(chars, {
             scrollTrigger: {
-                trigger: split.current,
-                start: "top 90%",
-                markers: true,
-                toggleActions: "play reset play reset",
+                trigger: splitWrapper.current,
+                start: "center 70%",
+                end: "center 100%",
+                // markers: true,
+                toggleActions: "play none none none",
                 // pin: true,
                 // scrub: true,
             },
@@ -58,7 +60,32 @@ export const Home_GsapTest = (props: any) => {
     }, []);
 
     useEffect(() => {
-        gsap.fromTo(
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: box.current,
+                start: "top 70%",
+                end: "top 100%",
+                markers: true,
+                toggleActions: "play none none none",
+                // pin: true,
+                // scrub: true,
+            },
+        });
+        // tl.from(box.current, {
+        //     rotation: -100,
+        //     y: 0,
+        //     opacity: 0,
+        //     scale: 1,
+        // }).to(box.current, {
+        //     rotation: 100,
+        //     y: -100,
+        //     opacity: 1,
+        //     duration: 0.8,
+        //     scale: 2,
+        //     ease: "bounce.out",
+        // });
+
+        tl.fromTo(
             box.current,
             {
                 rotation: -100,
@@ -68,14 +95,13 @@ export const Home_GsapTest = (props: any) => {
             },
             {
                 rotation: 100,
-                y: 200,
+                y: -100,
                 opacity: 1,
                 duration: 0.8,
                 scale: 2,
                 ease: "bounce.out",
             }
-        );
-        gsap.fromTo(
+        ).fromTo(
             text.current,
             {
                 rotation: -800,
@@ -87,7 +113,6 @@ export const Home_GsapTest = (props: any) => {
                 opacity: 1,
                 duration: 0.5,
                 scale: 2,
-                delay: 0.5,
                 ease: "power2.out",
             }
         );
@@ -96,12 +121,18 @@ export const Home_GsapTest = (props: any) => {
     return (
         <StyledWrapper>
             <StyledContainer>
-                <h1 ref={split} tw="text-hero leading-tightest m-0 pt-l">
-                    Emily is a medal winner
-                </h1>
+                <div
+                    className="trigger"
+                    tw="padding-block[100px] bg-red-5"
+                    ref={splitWrapper}
+                >
+                    <h1 ref={split} tw="text-hero leading-tightest m-0 pt-l">
+                        Split text test
+                    </h1>
+                </div>
             </StyledContainer>
             <StyledBox ref={box}>
-                <StyledFuckyou ref={text}>Hello You!</StyledFuckyou>
+                <StyledFuckyou ref={text}>Hello!</StyledFuckyou>
             </StyledBox>
         </StyledWrapper>
     );

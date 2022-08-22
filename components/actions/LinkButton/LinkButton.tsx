@@ -1,6 +1,7 @@
 import Link from "next/link";
 import tw from "twin.macro";
 import { styled, darkTheme } from "styles/stitches.config";
+import { useRef, forwardRef } from "react";
 
 const StyledButton = styled("a", {
     ...tw`block width[max-content]`,
@@ -47,19 +48,20 @@ type LinkButtonProps = {
     isExternal?: boolean;
     size?: "large" | "medium";
     children: React.ReactNode;
+    ref: any;
 };
 
-export const LinkButton = (props: LinkButtonProps) => {
+export const LinkButton = forwardRef((props: LinkButtonProps, ref: any) => {
     const { href, isExternal, size, children } = props;
     const external: any = isExternal ? "_blank" : false;
     return (
         <Link href={href} passHref>
-            <StyledButton target={external} size={size}>
+            <StyledButton target={external} size={size} ref={ref}>
                 {children}
             </StyledButton>
         </Link>
     );
-};
+});
 
 LinkButton.defaultProps = {
     children: "I am StyledButton, bitch",

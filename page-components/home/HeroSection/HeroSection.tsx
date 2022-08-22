@@ -1,6 +1,11 @@
 import { styled, darkTheme, css, keyframes } from "styles/stitches.config";
 import tw from "twin.macro";
 import { LinkButton, ChevronDown } from "components";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { useEffect, useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const StyledWrapper = styled("section", {
     // base tailwind styles
@@ -33,19 +38,26 @@ const StyledWrapper = styled("section", {
     },
 
     h1: {
-        background: "var(--text-gradient)",
-        "-webkit-background-clip": "text",
-        "-webkit-text-fill-color": "transparent",
-        backgroundClip: "text",
-        textFillColor: "transparent",
+        color: "$indigo12",
+
+        "& span": {
+            display: "inline-block",
+            opacity: 0,
+        },
     },
 
-    "h1 span": {
+    "h1 .modern-age-word": {
         background: "var(--span-gradient)",
         "-webkit-background-clip": "text",
         "-webkit-text-fill-color": "transparent",
         backgroundClip: "text",
         textFillColor: "transparent",
+        paddingBottom: 3,
+    },
+
+    "a, .intro-para": {
+        opacity: 0,
+        transform: "translateY(20px)",
     },
 
     "&::before": {
@@ -101,7 +113,77 @@ const bounceY = keyframes({
     "100%": { transform: "translateY(-5px)" },
 });
 
+// ****************************************************
+// ****************************************************
+// ********************** COMPONENT *******************
+// ****************************************************
+// ****************************************************
+
 export const HeroSection = (props: any) => {
+    const title = useRef(null);
+    const introPara = useRef(null);
+    const introButton = useRef(null);
+    const titleWrapper = useRef(null);
+    const q = gsap.utils.selector(title);
+
+    useEffect(() => {
+        let introWords1 = q(".intro-word-1");
+        let introWords2 = q(".intro-word-2");
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: titleWrapper.current,
+                start: "center 75%",
+                toggleActions: "play complete none none",
+                // markers: true,
+            },
+        });
+        // Target ALL descendants with the class of .intro-word
+        tl.fromTo(
+            introWords1,
+            {
+                y: 40,
+                opacity: 0,
+                filter: "blur(5px)",
+            },
+            {
+                y: 0,
+                opacity: 1,
+                stagger: 0.2,
+                filter: "blur(0px)",
+                delay: 0.1,
+                duration: 0.75,
+                ease: "power4.out",
+            }
+        )
+            .fromTo(
+                introWords2,
+                {
+                    y: 40,
+                    filter: "blur(5px)",
+                    opacity: 0,
+                },
+                {
+                    y: 0,
+                    filter: "blur(0px)",
+                    opacity: 1,
+                    stagger: 0.2,
+                    delay: -0.2,
+                    duration: 0.75,
+                    ease: "power4.out",
+                }
+            )
+            .to(introPara.current, {
+                opacity: 1,
+                y: 0,
+                duration: 0.4,
+            })
+            .to(introButton.current, {
+                opacity: 1,
+                y: 0,
+                duration: 0.4,
+            });
+    }, []);
+
     return (
         <StyledWrapper>
             <StyledBackground aria-hidden>
@@ -109,17 +191,35 @@ export const HeroSection = (props: any) => {
                 <div className="gradient2" />
             </StyledBackground>
 
-            <div tw="space-y-s-m flex items-center flex-col relative z-20">
-                <h1 tw="text-hero text-center max-width[18ch]">
-                    Digital creative solutions for the <span>modern age</span>
+            <div
+                tw="space-y-s-m flex items-center flex-col relative z-20"
+                ref={titleWrapper}
+            >
+                <h1 tw="text-hero text-center max-width[18ch]" ref={title}>
+                    <span className="intro-word-1">Digital</span>{" "}
+                    <span className="intro-word-1">creative</span>{" "}
+                    <span className="intro-word-1">solutions</span>{" "}
+                    <span className="intro-word-2">for</span>{" "}
+                    <span className="intro-word-2">the</span>{" "}
+                    <span className="intro-word-2 modern-age-word">
+                        modern age
+                    </span>
                 </h1>
-                <p tw="text-center max-width[56ch]">
+                <p
+                    tw="text-center max-width[56ch]"
+                    className="intro-para"
+                    ref={introPara}
+                >
                     Petierunt uti sibi concilium totius Galliae in diem certam
                     indicere. Lorem ipsum dolor sit amet, consectetur adipisici
                     elit, sed eiusmod tempor incidunt ut labore et dolore magna
                     aliqua. Plura mihi bona sunt.
                 </p>
-                <LinkButton href="https://google.com" size="large">
+                <LinkButton
+                    href="https://google.com"
+                    size="large"
+                    ref={introButton}
+                >
                     Let's chat
                 </LinkButton>
             </div>

@@ -2,6 +2,11 @@ import { styled, darkTheme } from "styles/stitches.config";
 import { Container } from "layout";
 import { HeadingLockup } from "components";
 import tw from "twin.macro";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const StyledSection = styled("section", {
     background: "$blue4",
@@ -9,7 +14,7 @@ const StyledSection = styled("section", {
     placeItems: "center",
     "@sm": {
         paddingInline: "$section-padding",
-        minHeight: "clamp(100px, 90vh, 860px)",
+        minHeight: "clamp(100px, 200vh, 1200px)",
     },
 
     [`.${darkTheme} &`]: {
@@ -23,6 +28,7 @@ const StyledTextSection = styled("div", {
     paddingBlock: "$xl",
     paddingBottom: "$6xl",
     minHeight: "clamp(400px, 90vh, 430px)",
+    // background: "red",
     "@sm": {
         padding: 0,
         minHeight: 0,
@@ -56,6 +62,26 @@ const FeaturedCards = styled("div", {
 });
 
 export const Home_ProductDesign = (props: any) => {
+    const TextContainer = useRef(null);
+    useEffect(() => {
+        gsap.fromTo(
+            TextContainer.current,
+            {
+                scrollTrigger: {
+                    trigger: TextContainer.current,
+                    start: "top 20%",
+                    end: "bottom 80%",
+                    pin: true,
+                    // markers: true,
+                },
+                opacity: 0,
+            },
+            {
+                opacity: 1,
+                duration: 3,
+            }
+        );
+    }, []);
     return (
         <StyledSection>
             <Container
@@ -69,7 +95,7 @@ export const Home_ProductDesign = (props: any) => {
                 }}
             >
                 <FeaturedCards />
-                <StyledTextSection>
+                <StyledTextSection ref={TextContainer}>
                     <HeadingLockup
                         css={{
                             ".pre-heading": {

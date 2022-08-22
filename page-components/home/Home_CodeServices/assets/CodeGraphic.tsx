@@ -1,9 +1,18 @@
 import { styled, keyframes } from "styles/stitches.config";
 import tw from "twin.macro";
 
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { SplitText } from "gsap/dist/SplitText";
+import { useEffect, useRef } from "react";
+import { text } from "stream/consumers";
+
+gsap.registerPlugin(ScrollTrigger, SplitText);
+
 const StyledCode = styled("div", {
     // ...tw`space-y-[1em]`,
     // height: 300,
+    "--code-height": "180px",
     "--code-green": "#3AD900",
     "--code-lightgreen": "#A5FF90",
     "--code-yellow": "#FFEE80",
@@ -16,10 +25,10 @@ const StyledCode = styled("div", {
     whiteSpace: "nowrap",
     width: "100%",
     // maxWidth: 480,
-    height: 180,
+    height: "var(--code-height)",
     transform: "rotate(-1deg) scale(0.9)",
     "@sm": {
-        height: 380,
+        "--code-height": "380px",
     },
     "@md": {
         height: 404,
@@ -79,30 +88,41 @@ const StyledSidebar = styled("div", {
     },
 });
 
+// const CodeSlide = keyframes({
+//     "0%": {
+//         transform: "translateY(0)",
+//     },
+//     "10%": {
+//         transform: "translateY(0)",
+//     },
+//     "70%": {
+//         transform: "translateY(-50%)",
+//     },
+//     "80%": {
+//         transform: "translateY(-50%)",
+//     },
+//     "100%": {
+//         transform: "translateY(0)",
+//     },
+// });
 const CodeSlide = keyframes({
     "0%": {
         transform: "translateY(0)",
     },
-    "10%": {
+    "20%": {
         transform: "translateY(0)",
     },
-    "70%": {
-        transform: "translateY(-50%)",
-    },
-    "80%": {
-        transform: "translateY(-50%)",
-    },
+
     "100%": {
-        transform: "translateY(0)",
+        transform: "translateY(-50%)",
     },
 });
 
 const StyledScroll = styled("div", {
     paddingTop: 16,
     paddingLeft: 56,
-    // transform: "translateY(-50%)",
-    animation: `${CodeSlide} 8000ms ease`,
-    animationIterationCount: "infinite",
+    // animation: `${CodeSlide} 48000ms ease`,
+    // animationIterationCount: "infinite",
     opacity: 0.75,
     position: "absolute",
     left: 0,
@@ -154,155 +174,219 @@ const LeftBrace = () => <>&#123;</>;
 const RightBrace = () => <>&#125;</>;
 
 export const CodeGraphic = () => {
+    const TextContainer = useRef(null);
+    const scrollContainer = useRef<HTMLDivElement>(null);
+    const sectionContainer = useRef(null);
+
+    useEffect(() => {
+        const split = new SplitText(TextContainer.current, { type: "chars" });
+        let myChars = split.chars;
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: sectionContainer.current,
+                start: "top 75%",
+                toggleActions: "play pause resume pause",
+            },
+        });
+
+        // GSAP Timeline:
+        tl.add("start")
+            .fromTo(
+                myChars,
+                {
+                    visibility: "hidden",
+                },
+                {
+                    visibility: "visible",
+                    stagger: 0.11,
+                    duration: 0.6,
+                    ease: "rough({ strength: 1, points: 20, template: none.out, taper: none, randomize: true, clamp: false })",
+                },
+                "start"
+            )
+            .to(
+                scrollContainer.current,
+                {
+                    transform: `translateY(calc(-100% + var(--code-height)))`,
+                    duration: 37,
+                    delay: 1,
+                    ease: "linear",
+                },
+                "start"
+            );
+    }, []);
     return (
-        <StyledCode>
-            <StyledScroll>
+        <StyledCode ref={sectionContainer}>
+            <StyledScroll ref={scrollContainer}>
                 <Sidebar />
-                <StyledCodeBlock>
-                    <div className="selector">
-                        <span className="code-green">.site-wrapper</span>{" "}
-                        <LeftBrace />
-                    </div>
-                    <div className="value">
-                        <div className="value-row">
-                            <span className="code-lightgreen">background</span>:
-                            #<span className="code-yellow">000</span>;
+                <div ref={TextContainer}>
+                    <StyledCodeBlock>
+                        <div className="selector">
+                            <span className="code-green">.site-wrapper</span>{" "}
+                            <LeftBrace />
                         </div>
-                    </div>
-                    <RightBrace />
-                </StyledCodeBlock>
-                <br />
-                <StyledCodeBlock>
-                    <div className="selector">
-                        <span className="code-green">.button--large</span>{" "}
-                        <LeftBrace />
-                    </div>
-                    <div className="value">
-                        <div className="value-row">
-                            <span className="code-lightgreen">height</span>:{" "}
-                            <span className="code-yellow">3</span>
-                            <span className="code-orange">rem</span>;
+                        <div className="value">
+                            <div className="value-row">
+                                <span className="code-lightgreen">
+                                    background
+                                </span>
+                                : <span>#</span>
+                                <span className="code-yellow">000</span>;
+                            </div>
                         </div>
-                        <div className="value-row">
-                            <span className="code-lightgreen">width</span>:{" "}
-                            <span className="code-yellow">fit-content</span>;
+                        <RightBrace />
+                    </StyledCodeBlock>
+                    <br />
+                    <StyledCodeBlock>
+                        <div className="selector">
+                            <span className="code-green">.button--large</span>{" "}
+                            <LeftBrace />
                         </div>
-                    </div>
-                    <RightBrace />
-                </StyledCodeBlock>
-                <br />
-                <StyledCodeBlock>
-                    <div className="selector">
-                        <span className="code-green">.header__logo</span>{" "}
-                        <LeftBrace />
-                    </div>
-                    <div className="value">
-                        <div className="value-row">
-                            <span className="code-lightgreen">width</span>:{" "}
-                            <span className="code-yellow">1.5</span>
-                            <span className="code-orange">rem</span>;
+                        <div className="value">
+                            <div className="value-row">
+                                <span className="code-lightgreen">height</span>:{" "}
+                                <span className="code-yellow">3</span>
+                                <span className="code-orange">rem</span>;
+                            </div>
+                            <div className="value-row">
+                                <span className="code-lightgreen">width</span>:{" "}
+                                <span className="code-yellow">fit-content</span>
+                                ;
+                            </div>
                         </div>
-                        <div className="value-row">
-                            <span className="code-lightgreen">height</span>:{" "}
-                            <span className="code-yellow">1.5</span>
-                            <span className="code-orange">rem</span>;
+                        <RightBrace />
+                    </StyledCodeBlock>
+                    <br />
+                    <StyledCodeBlock>
+                        <div className="selector">
+                            <span className="code-green">.header__logo</span>{" "}
+                            <LeftBrace />
                         </div>
-                        <div className="value-row">
-                            <span className="code-lightgreen">display</span>:{" "}
-                            <span className="code-yellow">inline-block</span>;
+                        <div className="value">
+                            <div className="value-row">
+                                <span className="code-lightgreen">width</span>:{" "}
+                                <span className="code-yellow">1.5</span>
+                                <span className="code-orange">rem</span>;
+                            </div>
+                            <div className="value-row">
+                                <span className="code-lightgreen">height</span>:{" "}
+                                <span className="code-yellow">1.5</span>
+                                <span className="code-orange">rem</span>;
+                            </div>
+                            <div className="value-row">
+                                <span className="code-lightgreen">display</span>
+                                :{" "}
+                                <span className="code-yellow">
+                                    inline-block
+                                </span>
+                                ;
+                            </div>
                         </div>
-                    </div>
-                    <RightBrace />
-                </StyledCodeBlock>
-                <br />
-                <StyledCodeBlock>
-                    <div className="selector">
-                        <span className="code-green">
-                            <span className="code-blue">svg</span>.icon__hero
-                        </span>{" "}
-                        <LeftBrace />
-                    </div>
-                    <div className="value">
-                        <div className="value-row">
-                            <span className="code-lightgreen">animation</span>:{" "}
-                            <span className="code-blue">slideIn</span>{" "}
-                            <span className="code-yellow">
-                                600<span className="code-orange">ms</span> ease
-                            </span>
-                            ;
-                        </div>
-                        <div className="value-row">
-                            <span className="code-lightgreen">width</span>:{" "}
-                            <span className="code-yellow">fit-content</span>;
-                        </div>
-                    </div>
-                    <RightBrace />
-                </StyledCodeBlock>
-                <br />
-                <StyledCodeBlock>
-                    <div className="selector">
-                        @<span className="code-orange">keyframes</span>{" "}
-                        <span className="code-blue">slideIn</span> <LeftBrace />
-                    </div>
-                    <div className="value">
-                        <div className="value-row">
-                            <span className="code-green">from</span>{" "}
-                            <LeftBrace />{" "}
-                            <span className="code-lightgreen">width</span>:{" "}
-                            <span className="code-yellow">0</span>{" "}
-                            <RightBrace />
-                        </div>
-                        <div className="value-row">
-                            <span className="code-green">to</span> <LeftBrace />{" "}
-                            <span className="code-lightgreen">width</span>:{" "}
-                            <span className="code-yellow">
-                                100<span className="code-orange">%</span>
+                        <RightBrace />
+                    </StyledCodeBlock>
+                    <br />
+                    <StyledCodeBlock>
+                        <div className="selector">
+                            <span className="code-green">
+                                <span className="code-blue">svg</span>
+                                .icon__hero
                             </span>{" "}
-                            <RightBrace />
+                            <LeftBrace />
                         </div>
-                    </div>
-                    <RightBrace />
-                </StyledCodeBlock>
-                <br />
-                <StyledCodeBlock>
-                    <div className="selector">
-                        <span className="code-green">.content-area</span>{" "}
-                        <LeftBrace />
-                    </div>
-                    <div className="value">
-                        <div className="value-row">
-                            <span className="code-lightgreen">font-size</span>:{" "}
-                            <span className="code-yellow">
-                                1.2<span className="code-orange">rem</span>
-                            </span>
-                            ;
+                        <div className="value">
+                            <div className="value-row">
+                                <span className="code-lightgreen">
+                                    animation
+                                </span>
+                                : <span className="code-blue">slideIn</span>{" "}
+                                <span className="code-yellow">
+                                    <span>600</span>
+                                    <span className="code-orange">ms</span> ease
+                                </span>
+                                ;
+                            </div>
+                            <div className="value-row">
+                                <span className="code-lightgreen">width</span>:{" "}
+                                <span className="code-yellow">fit-content</span>
+                                ;
+                            </div>
                         </div>
-                        <div className="value-row">
-                            <span className="code-lightgreen">padding</span>:{" "}
-                            <span className="code-blue">
-                                <span className="code-orange">var</span>
-                                (--side-padding)
-                            </span>
-                            ;
+                        <RightBrace />
+                    </StyledCodeBlock>
+                    <br />
+                    <StyledCodeBlock>
+                        <div className="selector">
+                            <span>@</span>
+                            <span className="code-orange">keyframes</span>{" "}
+                            <span className="code-blue">slideIn</span>{" "}
+                            <LeftBrace />
                         </div>
-                        <div className="value-row">
-                            <span className="code-lightgreen">height</span>:{" "}
-                            <span className="code-yellow">
-                                <span className="code-orange">calc</span>(300
-                                <span className="code-orange">px</span>, 80
-                                <span className="code-orange">vh</span>, 860
-                                <span className="code-orange">px</span>)
-                            </span>
-                            ;
+                        <div className="value">
+                            <div className="value-row">
+                                <span className="code-green">from</span>{" "}
+                                <LeftBrace />{" "}
+                                <span className="code-lightgreen">width</span>:{" "}
+                                <span className="code-yellow">0</span>{" "}
+                                <RightBrace />
+                            </div>
+                            <div className="value-row">
+                                <span className="code-green">to</span>{" "}
+                                <LeftBrace />{" "}
+                                <span className="code-lightgreen">width</span>:{" "}
+                                <span className="code-yellow">
+                                    100<span className="code-orange">%</span>
+                                </span>{" "}
+                                <RightBrace />
+                            </div>
                         </div>
-                        <div className="value-row">
-                            <span className="code-lightgreen">display</span>:{" "}
-                            <span className="code-yellow">grid</span>;
+                        <RightBrace />
+                    </StyledCodeBlock>
+                    <br />
+                    <StyledCodeBlock>
+                        <div className="selector">
+                            <span className="code-green">.content-area</span>{" "}
+                            <LeftBrace />
                         </div>
-                    </div>
-                    <RightBrace />
-                </StyledCodeBlock>
-                <br />
+                        <div className="value">
+                            <div className="value-row">
+                                <span className="code-lightgreen">
+                                    font-size
+                                </span>
+                                :{" "}
+                                <span className="code-yellow">
+                                    1.2<span className="code-orange">rem</span>
+                                </span>
+                                ;
+                            </div>
+                            <div className="value-row">
+                                <span className="code-lightgreen">padding</span>
+                                :{" "}
+                                <span className="code-blue">
+                                    <span className="code-orange">var</span>
+                                    (--side-padding)
+                                </span>
+                                ;
+                            </div>
+                            <div className="value-row">
+                                <span className="code-lightgreen">height</span>:{" "}
+                                <span className="code-yellow">
+                                    <span className="code-orange">calc</span>
+                                    (300
+                                    <span className="code-orange">px</span>, 80
+                                    <span className="code-orange">vh</span>, 860
+                                    <span className="code-orange">px</span>)
+                                </span>
+                                ;
+                            </div>
+                            <div className="value-row">
+                                <span className="code-lightgreen">display</span>
+                                : <span className="code-yellow">grid</span>;
+                            </div>
+                        </div>
+                        <RightBrace />
+                    </StyledCodeBlock>
+                    <br />
+                </div>
             </StyledScroll>
         </StyledCode>
     );

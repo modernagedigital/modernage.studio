@@ -1,13 +1,18 @@
 import { styled, darkTheme, css } from "styles/stitches.config";
 import { visuallyHidden } from "styles/utils";
 import tw from "twin.macro";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Container } from "layout";
 import { Emoji_HeartEyes } from "components";
 import ds_image1 from "assets/images/designsystems-wall-01@2x.png";
 import ds_image2 from "assets/images/designsystems-wall-02@2x.png";
 import ds_image3 from "assets/images/designsystems-wall-03@2x.png";
 import Image from "next/image";
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const StyledImageFrame = styled("div", {
     background: "$blue1",
@@ -46,6 +51,12 @@ const StyledEmoji = styled("span", {
         left: "50%",
         top: "50%",
         transform: "translate(-50%, -70%)",
+        overflow: "visible",
+    },
+    ".left-eye": {
+        // transform: "scale(1.2)",
+        transformOrigin: "center center",
+        background: "red",
     },
 });
 
@@ -80,6 +91,7 @@ const StyledIntroText = styled(Container, {
 });
 
 export const Home_DesignSystems = (props: any) => {
+    useEffect(() => {}, []);
     return (
         <StyledSection>
             <div tw="grid place-items-center">

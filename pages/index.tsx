@@ -14,7 +14,7 @@ import {
 const Home: NextPage = () => {
     return (
         <SiteWrapper>
-            <Home_GsapTest />
+            {/* <Home_GsapTest /> */}
             <HeroSection />
             <Home_DesignSystems />
             <Home_ProductDesign />
